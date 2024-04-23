@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circles in Circles</title>
+<style>
+    canvas {
+        border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+<canvas id="myCanvas" width="600" height="600"></canvas>
+<script>
+    // Function to draw circles recursively
+    function drawCircle(context, x, y, radius, depth) {
+        if (depth === 0) {
+            return; // Base case, stop recursion
+        }
+
+        context.beginPath();
+        context.arc(x, y, radius, 0, 2 * Math.PI);
+        context.stroke();
+
+        // Generate a random color for each circle
+        context.strokeStyle = '#' + Math.floor(Math.random()*16777215).toString(16);
+        
+        // Decrease the radius for the next circle
+        radius -= 10;
+
+        // Recursively draw circles with smaller radius
+        drawCircle(context, x, y, radius, depth - 1);
+    }
+
+    // Get the canvas element
+    var canvas = document.getElementById("myCanvas");
+    var context = canvas.getContext("2d");
+
+    // Start drawing the circles
+    drawCircle(context, canvas.width / 2, canvas.height / 2, 250, 10);
+</script>
+</body>
+</html>
